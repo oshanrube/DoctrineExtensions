@@ -56,6 +56,8 @@ class SoftDeleteableFilter extends SQLFilter
 
     public function enableForEntity($class)
     {
+         //flush the UOW
+        $this->getEntityManager()->getUnitOfWork()->clear($class);
         $this->disabled[$class] = false;
     }
 
