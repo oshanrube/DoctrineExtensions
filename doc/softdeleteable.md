@@ -37,7 +37,7 @@ $config = new Doctrine\ORM\Configuration;
 
 // Your configs..
 
-$config->addFilter('soft-deleteable', 'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter');
+$config->addFilter('soft_deleteable', 'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter');
 ```
 
 And then you can access the filter from your EntityManager to enable or disable it with the following code:
@@ -46,10 +46,10 @@ And then you can access the filter from your EntityManager to enable or disable 
 // This will enable the SoftDeleteable filter, so entities which were "soft-deleted" will not appear
 // in results
 // You should adapt the filter name to your configuration (ex: softdeleteable)
-$em->getFilters()->enable('soft-deleteable');
+$em->getFilters()->enable('soft_deleteable');
 
 // This will disable the SoftDeleteable filter, so entities which were "soft-deleted" will appear in results
-$em->getFilters()->disable('soft-deleteable');
+$em->getFilters()->disable('soft_deleteable');
 ```
 
 Or from your DocumentManager (ODM):
@@ -58,13 +58,13 @@ Or from your DocumentManager (ODM):
 // This will enable the SoftDeleteable filter, so entities which were "soft-deleted" will not appear
 // in results
 // You should adapt the filter name to your configuration (ex: softdeleteable)
-$em->getFilterCollection()->enable('soft-deleteable');
+$em->getFilterCollection()->enable('soft_deleteable');
 
 // This will disable the SoftDeleteable filter, so entities which were "soft-deleted" will appear in results
-$em->getFilterCollection()->disable('soft-deleteable');
+$em->getFilterCollection()->disable('soft_deleteable');
 ```
 
-**NOTE:** by default all filters are disabled, so you must explicitly enable **soft-deleteable** filter in your setup
+**NOTE:** by default all filters are disabled, so you must explicitly enable **soft_deleteable** filter in your setup
 or whenever you need it.
 
 <a name="entity-mapping"></a>
@@ -183,7 +183,7 @@ class Article
 
         <field name="deletedAt" type="datetime" nullable="true" />
 
-        <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" hard-delete="true" />
+        <gedmo:soft_deleteable field-name="deletedAt" time-aware="false" hard-delete="true" />
     </entity>
 
 </doctrine-mapping>
@@ -212,14 +212,14 @@ $art = $repo->findOneBy(array('title' => 'My Article'));
 $this->assertNull($art);
 
 // But if we disable the filter, the article should appear now
-$em->getFilters()->disable('soft-deleteable');
+$em->getFilters()->disable('soft_deleteable');
 
 $art = $repo->findOneBy(array('title' => 'My Article'));
 
 $this->assertTrue(is_object($art));
 
 // Enable / Disable filter filter, for specified entity (default is enabled for all)
-$filter = $em->getFilters()->enable('soft-deleteable');
+$filter = $em->getFilters()->enable('soft_deleteable');
 $filter->disableForEntity('Entity\Article');
 $filter->enableForEntity('Entity\Article');
 
